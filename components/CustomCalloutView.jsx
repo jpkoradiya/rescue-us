@@ -3,8 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 const styles = StyleSheet.create({
   bubble: {
     flex: 1,
-    justifyContent: "start",
-    alignItems: "start",
+
     backgroundColor: "ghostwhite",
     width: 200,
     height: "100%",
@@ -13,7 +12,6 @@ const styles = StyleSheet.create({
   detailsButton: {
     display: "flex",
     width: "100%",
-    justifyContent: "flex-end",
     alignItems: "flex-end",
     paddingTop: 3,
   },

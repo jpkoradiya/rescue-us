@@ -12,6 +12,7 @@ import {
 import { useStore } from "../store";
 import { useState } from "react";
 import Icon from "react-native-vector-icons/FontAwesome5";
+import ShoppingListItem from "../components/ShoppingListItem";
 
 export default function ShoppingListScreen({ navigation }) {
   const { shoppingList, addToShoppingList, removeFromShoppingList } =
@@ -24,6 +25,7 @@ export default function ShoppingListScreen({ navigation }) {
   const handleAddProduct = (e) => {
     if (productName.length > 0 && productQty > 0) {
       const newProd = {
+        id: shoppingList.length + 1,
         name: productName,
         quantity: productQty,
       };
@@ -82,8 +84,8 @@ export default function ShoppingListScreen({ navigation }) {
                   marginTop: 15,
                   justifyContent: "center",
                   alignItems: "center",
-                  borderWidth: "0.3px",
-                  borderRadius: 50,
+                  borderWidth: 0.3,
+                  borderRadius: 100,
                 }}
               >
                 <Pressable
@@ -93,14 +95,6 @@ export default function ShoppingListScreen({ navigation }) {
                 >
                   <Text style={{ fontSize: 15 }}>-</Text>
                 </Pressable>
-                {/* <TextInput
-                  value={productQty}
-                  onChangeText={(e) => handleQtyChange(e)}
-                  keyboardType="numeric"
-                  placeholder="Quantity"
-                  placeholderTextColor="#C4C4C4"
-                  style={[{ width: 100 }]}
-                /> */}
                 <Text style={{ marginHorizontal: 10 }}>{productQty}</Text>
 
                 <Pressable
@@ -138,10 +132,7 @@ export default function ShoppingListScreen({ navigation }) {
       </Modal>
       {shoppingList.length > 0 &&
         shoppingList.map((item, index) => (
-          <View key={index}>
-            <Text>{item.name}</Text>
-            <Text>{item.quantity}</Text>
-          </View>
+          <ShoppingListItem key={item.id} item={item} />
         ))}
       <Pressable
         style={styles.addButtonView}
@@ -170,7 +161,7 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     backgroundColor: "green",
-    borderRadius: "50%",
+    borderRadius: 50,
     marginRight: 10,
     marginBottom: 10,
   },
@@ -196,6 +187,7 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5,
   },
+
   input: {
     marginTop: 20,
     width: 200,
@@ -223,10 +215,10 @@ const styles = StyleSheet.create({
 
   editQtyButton: {
     marginHorizontal: 0,
-    borderWidth: "0.3px",
+    borderWidth: 0.3,
     width: 30,
     height: 30,
-    borderRadius: "50%",
+    borderRadius: 50,
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
