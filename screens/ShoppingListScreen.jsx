@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { useStore } from "../store";
 import { useState } from "react";
+import Icon from "react-native-vector-icons/FontAwesome5";
 
 export default function ShoppingListScreen({ navigation }) {
   const { shoppingList, addToShoppingList, removeFromShoppingList } =
@@ -146,7 +147,8 @@ export default function ShoppingListScreen({ navigation }) {
         style={styles.addButtonView}
         onPress={() => setModalVisible(true)}
       >
-        <Text style={{ fontSize: 24, color: "#FFFFFF" }}>+</Text>
+        {/* <Text style={{ fontSize: 24, color: "#FFFFFF" }}>+</Text> */}
+        <Icon name="plus" size={24} color={"#FFFFFF"} light />
       </Pressable>
       <StatusBar style="auto" />
     </View>
