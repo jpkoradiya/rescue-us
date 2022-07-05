@@ -1,5 +1,5 @@
 import { NavigationContainer } from "@react-navigation/native";
-import { StyleSheet, Text, View } from "react-native";
+import { Platform, StyleSheet, Text, View } from "react-native";
 import ShoppingListScreen from './screens/ShoppingListScreen';
 import PantryScreen from "./screens/PantryScreen";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -43,13 +43,37 @@ export default function App() {
             return <MaterialIcons name="kitchen" size={size} color={color} solid={focused} />
           }
         },
-        tabBarActiveTintColor: 'green',
-        tabBarInactiveTintColor: 'gray',
+        tabBarActiveTintColor: 'white',
+        tabBarInactiveTintColor: 'rgba(255, 255, 255, 0.5)',
         tabBarShowLabel: false,
+        safeAreaInset: { bottom: 'never', top: 'never' },
+        tabBarStyle: {
+          backgroundColor: "#14A94C",
+          borderRadius: 40,
+          marginBottom: 10,
+          marginHorizontal: 5,
+          position: "absolute"
+        }
       })}
       >
-        <Tab.Screen name="Home" component={HomeStackScreen} />
-        <Tab.Screen name="Blog" component={BlogStackScreen} />
+        <Tab.Screen name="Home" component={HomeStackScreen}
+          options={{
+            title: "Shelter Map",
+            headerShown: false,
+            headerTitleStyle: {
+              fontSize: 28,
+              fontWeight: "600",
+            }
+          }}
+        />
+        <Tab.Screen name="Blog" component={BlogStackScreen} options={{
+          title: "Shelter Map",
+          headerShown: false,
+          headerTitleStyle: {
+            fontSize: 28,
+            fontWeight: "600",
+          }
+        }} />
         <Tab.Screen name="Shopping List" component={ShoppingListScreen} />
         <Tab.Screen name="Pantry" component={PantryScreen} />
       </Tab.Navigator>

@@ -1,9 +1,8 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 
 const styles = StyleSheet.create({
   bubble: {
     flex: 1,
-
     backgroundColor: "ghostwhite",
     width: 200,
     height: "100%",
@@ -14,6 +13,7 @@ const styles = StyleSheet.create({
     width: "100%",
     alignItems: "flex-end",
     paddingTop: 3,
+    zIndex: 30,
   },
 });
 
@@ -29,14 +29,7 @@ function CustomCalloutView({ marker, navigation }) {
       <Text>{marker.properties.NAME}</Text>
       <Text>{fullAddress}</Text>
       <View style={styles.detailsButton}>
-        <Text
-          style={{ color: "#0000EE" }}
-          onPress={() =>
-            navigation.navigate("Shelter Details", { data: marker.properties })
-          }
-        >
-          See details &gt;
-        </Text>
+        <Text style={{ color: "#0000EE" }}>See details &gt;</Text>
       </View>
     </View>
   );

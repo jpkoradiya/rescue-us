@@ -8,7 +8,11 @@ export default function BlogStackScreen() {
   return (
     <HomeStack.Navigator
       screenOptions={{
-        headerShown: false,
+        headerShown: true,
+        headerTitleStyle: {
+          fontSize: 28,
+          fontWeight: "600",
+        },
       }}
     >
       <HomeStack.Screen name="Blog Screen" component={BlogScreen} />

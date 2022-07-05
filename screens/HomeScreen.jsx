@@ -1,11 +1,20 @@
+import { useEffect } from "react";
 import { View, StatusBar, StyleSheet } from "react-native";
 import MapView, { Callout, Marker } from "react-native-maps";
 import CustomCalloutView from "../components/CustomCalloutView";
 import { shelterData } from "../data/shelterData";
+import { askAsync } from "expo-permissions";
+import * as Permissions from "expo-permissions";
 
 export default function HomeScreen({ navigation }) {
   const data = shelterData;
-  console.log(data[0].geometry.coordinates[0]);
+
+  useEffect(() => {
+    const askUserLocation = async () =>
+      await askAsync(Permissions.LOCATION_BACKGROUND);
+    askUserLocation();
+  }, []);
+
   return (
     <View style={styles.container}>
       <MapView
@@ -13,6 +22,12 @@ export default function HomeScreen({ navigation }) {
         showsUserLocation
         followUserLocation
         showsPointsOfInterest={false}
+        initialRegion={{
+          latitude: 43.6532,
+          longitude: -79.3832,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        }}
       >
         {data.map((marker) => (
           <Marker
@@ -24,7 +39,14 @@ export default function HomeScreen({ navigation }) {
             title={marker.properties.Name}
             description={marker.properties.Address}
           >
-            <Callout tooltip={true}>
+            <Callout
+              tooltip={true}
+              onPress={() =>
+                navigation.navigate("Shelter Details", {
+                  data: marker.properties,
+                })
+              }
+            >
               <CustomCalloutView marker={marker} navigation={navigation} />
             </Callout>
           </Marker>

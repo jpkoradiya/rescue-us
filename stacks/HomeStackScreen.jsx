@@ -8,11 +8,19 @@ export default function HomeStackScreen() {
   return (
     <HomeStack.Navigator
       screenOptions={{
-        headerShown: false,
+        headerShown: true,
+        headerTitleStyle: {
+          fontSize: 28,
+          fontWeight: "600",
+        },
       }}
     >
       <HomeStack.Screen name="Shelter Map" component={HomeScreen} />
-      <HomeStack.Screen name="Shelter Details" component={DetailsScreen} />
+      <HomeStack.Screen
+        name="Shelter Details"
+        component={DetailsScreen}
+        options={({ route }) => ({ title: route.params.data.NAME })}
+      />
     </HomeStack.Navigator>
   );
 }

@@ -18,5 +18,8 @@ export const useStore = create(set => ({
     },
 
     pantryList: [],
+    addToPantryList: (item) => set((state) => (
+        { pantryList: [...state.pantryList, item] }
+    ))
 
 }))
