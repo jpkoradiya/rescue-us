@@ -1,20 +1,37 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { View, StatusBar, StyleSheet } from "react-native";
 import MapView, { Callout, Marker } from "react-native-maps";
 import CustomCalloutView from "../components/CustomCalloutView";
 import { shelterData } from "../data/shelterData";
-import { askAsync } from "expo-permissions";
-import * as Permissions from "expo-permissions";
+import * as Location from "expo-location";
 
 export default function HomeScreen({ navigation }) {
   const data = shelterData;
+  const [location, setLocation] = useState({
+    latitude: 43.6532,
+    longitude: -79.3832,
+  });
 
   useEffect(() => {
-    const askUserLocation = async () =>
-      await askAsync(Permissions.LOCATION_BACKGROUND);
-    askUserLocation();
+    let status;
+    const askLocation = async () => {
+      status = await Location.requestForegroundPermissionsAsync();
+      console.log("Status: ", status);
+      if (!status.granted) {
+        return;
+      }
+
+      let location = await Location.getCurrentPositionAsync({});
+      console.log("location: ", location);
+      setLocation({
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+      });
+    };
+    askLocation();
   }, []);
 
+  console.log("location: ", location);
   return (
     <View style={styles.container}>
       <MapView
@@ -23,8 +40,8 @@ export default function HomeScreen({ navigation }) {
         followUserLocation
         showsPointsOfInterest={false}
         initialRegion={{
-          latitude: 43.6532,
-          longitude: -79.3832,
+          latitude: location.latitude,
+          longitude: location.longitude,
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         }}

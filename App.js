@@ -1,5 +1,5 @@
 import { NavigationContainer } from "@react-navigation/native";
-import { Platform, StyleSheet, Text, View } from "react-native";
+import { StyleSheet } from "react-native";
 import ShoppingListScreen from './screens/ShoppingListScreen';
 import PantryScreen from "./screens/PantryScreen";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -8,21 +8,6 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import HomeStackScreen from "./stacks/HomeStackScreen";
 import BlogStackScreen from "./stacks/BlogStackScreen";
-
-// **** Native Stack Navigation *****
-
-// const Stack = createNativeStackNavigator();
-// export default function App() {
-//   return (
-//     <NavigationContainer>
-//       <Stack.Navigator initialRouteName="Home">
-//         <Stack.Screen name="Home" component={HomeScreen} />
-//         <Stack.Screen name="Blog" component={BlogScreen} />
-//       </Stack.Navigator>
-//     </NavigationContainer>
-//   );
-// }
-
 
 // **** Tab Navigation *****
 
