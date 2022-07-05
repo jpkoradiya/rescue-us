@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -7,6 +8,7 @@ import {
   FlatList,
 } from "react-native";
 import { useStore } from "../store";
+
 const SHELF_LIFE_API_URL = "https://shelf-life-api.herokuapp.com";
 
 // get a number and return the ordinal suffix (st, nd, rd, th)
@@ -33,7 +35,9 @@ export default function PantryScreen({ navigation }) {
     } else {
       var uri = SHELF_LIFE_API_URL + "/search";
     }
-
+    const res = await fetch(uri);
+    const data2 = await res.json();
+    console.log("data2: ", data2);
     fetch(uri)
       .then((resp) => resp.json())
       .then((items) => {
@@ -57,6 +61,7 @@ export default function PantryScreen({ navigation }) {
 
     if (itemId !== 0) {
       var uri = SHELF_LIFE_API_URL + "/guides/" + itemId;
+      console.log(uri);
       fetch(uri)
         .then((resp) => resp.json())
         .then((items) => {
@@ -72,6 +77,7 @@ export default function PantryScreen({ navigation }) {
 
   const getData = async () => {
     await getItemFromApi("Coriander");
+    console.log("pantry: ", pantryItems[0]);
     await getItemExpiry(pantryItems[0].key);
   };
 
