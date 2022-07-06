@@ -1,6 +1,15 @@
+import { useEffect } from "react";
 import { View, Text, StatusBar, StyleSheet, Button } from "react-native";
+import { getTips } from "../data/getTipsAndTricks";
+import { useStore } from "../store";
 
 export default function BlogScreen({ navigation }) {
+
+  const pantryList = useStore((state) => state.pantryList);
+  useEffect(()=>{
+    getTips(pantryList)
+  },[pantryList])
+
   return (
     <View style={styles.container}>
       <Text>Open up Blog.jsx </Text>
