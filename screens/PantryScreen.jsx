@@ -76,7 +76,7 @@ export default function PantryScreen({ navigation }) {
   };
 
   const getData = async () => {
-    await getItemFromApi("Coriander");
+    await getItemFromApi("Banana");
     console.log("pantry: ", pantryItems[0]);
     await getItemExpiry(pantryItems[0].key);
   };
@@ -108,20 +108,6 @@ export default function PantryScreen({ navigation }) {
           </View>
         )}
       />
-      <View style={styles.container}>
-        <Text>
-          <FlatList
-            data={pantryItems}
-            renderItem={({ item }) => <Text>{item.name} </Text>}
-          />
-          <Text>
-            {" "}
-            ----&gt; {itemExpiry.expiry / 86400} -{" "}
-            {itemExpiry.expiry / 86400 + 1} days{" "}
-          </Text>
-        </Text>
-        <StatusBar style="auto" />
-      </View>
     </View>
   );
 }
