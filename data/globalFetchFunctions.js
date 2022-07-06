@@ -37,7 +37,8 @@ const getItemExpiry = async (item = { key: 0, name: "Invalid Name" }) => {
     return {
       id: itemId,
       name: item.name,
-      expiry: `${(data.methods[0].expirationTime)/86400} days`,
+      expire: `${(data.methods[0].expirationTime)/86400} days`,
+      expiryInMs: (data.methods[0].expirationTime)*1000,
     };
   } else {
     return {
