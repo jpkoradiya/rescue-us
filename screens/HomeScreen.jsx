@@ -16,13 +16,11 @@ export default function HomeScreen({ navigation }) {
     let status;
     const askLocation = async () => {
       status = await Location.requestForegroundPermissionsAsync();
-      console.log("Status: ", status);
       if (!status.granted) {
         return;
       }
 
       let location = await Location.getCurrentPositionAsync({});
-      console.log("location: ", location);
       setLocation({
         latitude: location.coords.latitude,
         longitude: location.coords.longitude,
@@ -31,7 +29,6 @@ export default function HomeScreen({ navigation }) {
     askLocation();
   }, []);
 
-  console.log("location: ", location);
   return (
     <View style={styles.container}>
       <MapView

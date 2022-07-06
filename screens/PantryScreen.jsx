@@ -1,12 +1,7 @@
 import { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  StatusBar,
-  StyleSheet,
-  Button,
-  FlatList,
-} from "react-native";
+import { View, Text, Pressable, StyleSheet, FlatList } from "react-native";
+import AddPantryItemModal from "../components/AddPantryItemModal";
+import PantryListItem from "../components/PantryListItem";
 import { useStore } from "../store";
 
 const SHELF_LIFE_API_URL = "https://shelf-life-api.herokuapp.com";
@@ -20,93 +15,21 @@ const getOrdinal = (number) => {
 
 export default function PantryScreen({ navigation }) {
   const { pantryList, addToPantryList } = useStore();
-  const [pantryItems, setPantryItems] = useState([]);
-  const [itemExpiry, setItemExpiry] = useState([]);
+  const [modalVisible, setModalVisible] = useState(false);
 
-  const getFreshAndRawData = (item) => {
-    return item.name.includes("Fresh, Raw");
-  };
-
-  const getItemFromApi = async (itemName = "") => {
-    var data = [];
-
-    if (itemName !== "") {
-      var uri = SHELF_LIFE_API_URL + "/search?q=" + itemName;
-    } else {
-      var uri = SHELF_LIFE_API_URL + "/search";
-    }
-    const res = await fetch(uri);
-    const data2 = await res.json();
-    console.log("data2: ", data2);
-    fetch(uri)
-      .then((resp) => resp.json())
-      .then((items) => {
-        data = items.filter(getFreshAndRawData);
-        //console.log(items.length)
-        setPantryItems(
-          data.map((item) => {
-            //console.log(item)
-            return {
-              key: item.id,
-              name: item.name,
-              url: item.url,
-            };
-          })
-        );
-      });
-  };
-
-  const getItemExpiry = async (itemId = 0) => {
-    var data = [];
-
-    if (itemId !== 0) {
-      var uri = SHELF_LIFE_API_URL + "/guides/" + itemId;
-      console.log(uri);
-      fetch(uri)
-        .then((resp) => resp.json())
-        .then((items) => {
-          setItemExpiry({
-            key: itemId,
-            name: items.name,
-            expiry: items.methods[0].expirationTime,
-          });
-          //);
-        });
-    }
-  };
-
-  const getData = async () => {
-    await getItemFromApi("Banana");
-    console.log("pantry: ", pantryItems[0]);
-    await getItemExpiry(pantryItems[0].key);
-  };
-
-  useEffect(() => {
-    getData();
-  }, []);
-  console.log(pantryList);
   return (
     <View style={styles.container}>
-      <Text>Open up Pantry.jsx </Text>
+      <Pressable onPress={() => setModalVisible(!modalVisible)}>
+        <Text style={styles.addTopButton}>+ ADD ITEMS</Text>
+      </Pressable>
+      <AddPantryItemModal
+        setModalVisible={setModalVisible}
+        modalVisible={modalVisible}
+      />
       <FlatList
         data={pantryList}
         keyExtractor={pantryList.id}
-        renderItem={({ item }) => (
-          <View>
-            <Text>
-              {"Added "}
-              {item.dateAdded.getDate()}
-              {getOrdinal(item.dateAdded.getDate())}{" "}
-              {item.dateAdded.toLocaleString("default", { month: "long" })}
-            </Text>
-            {/* <Text>
-              {"Use before "}
-              {item.expiration.getDate()}
-              {getOrdinal(item.dateAdded.getDate())}{" "}
-              {item.expiration.toLocaleString("default", { month: "long" })}
-            </Text> */}
-          </View>
-        )}
+        renderItem={({ item }) => <PantryListItem id={item.id} />}
       />
     </View>
   );
@@ -116,7 +39,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    width: "100%",
+  },
+  addTopButton: {
+    color: "#14A94C",
+    margin: 10,
+    fontWeight: "600",
+    fontSize: 16,
   },
 });
