@@ -36,7 +36,7 @@ export const useStore = create((set, get) => ({
     })),
     // remove an item from the pantry list
     removeFromPantryList: (item) => set((state) => ({
-        pantryList: state.pantryList.filter((el) => el !== item)
+        pantryList: state.pantryList.filter((el) => el.id !== item.id)
     })),
     // remove all items from the pantry list
     removeAllFromPantryList: () => set((state) => ({

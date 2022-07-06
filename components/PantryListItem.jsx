@@ -1,8 +1,7 @@
-import { View, Text, StyleSheet } from "react-native";
-import { Checkbox } from "react-native-paper";
-import { useState } from "react";
+import { View, Text, StyleSheet, Pressable } from "react-native";
 import { useStore } from "../store";
-import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
+import dayjs from "dayjs";
+import Entypo from "react-native-vector-icons/Entypo";
 
 // get a number and return the ordinal suffix (st, nd, rd, th)
 const getOrdinal = (number) => {
@@ -11,46 +10,60 @@ const getOrdinal = (number) => {
   return suffix[lastDigit] || suffix[0];
 };
 
+const getFormatedDate = (date) => {
+  const ord = getOrdinal(date.getDate());
+  const formattedDate = dayjs(date).format("MMM DD");
+  return formattedDate + ord;
+};
+
 export default function PantryListItem({ id }) {
-  const { getItemById } = useStore();
-  //   const [item, setItem] = useState(getItemById(id));
   const item = useStore((state) =>
     state.pantryList.find((item) => item.id === id)
   );
-  console.log(item);
+
+  const increaseQuantity = useStore((state) => state.increaseQuantity);
+  const decreaseQuantity = useStore((state) => state.decreaseQuantity);
+
+  if (item.quantity === 0) {
+    return null;
+  }
+
   return (
     <View style={[styles.item]}>
       <View style={styles.itemLeft}>
         <Text style={styles.itemName}>{item.name}</Text>
         <Text>
           {"Added "}
-          {item.dateAdded.getDate()}
-          {getOrdinal(item.dateAdded.getDate())}{" "}
-          {item.expiration.toLocaleString("en-us", { month: "long" })}
+          {getFormatedDate(item.dateAdded)}
+          {item.id}
         </Text>
       </View>
       <View style={styles.itemRight}>
         <View style={styles.itemQtyRow}>
-          <Pressable style={[styles.editQtyBtn, { backgroundColor: "green" }]}>
-            <Text>+</Text>
+          <Pressable
+            style={[styles.editQtyBtn]}
+            onPress={() => decreaseQuantity(item)}
+            disabled={item.quantity === 0}
+            onLongPress={() => decreaseQuantity(item)}
+          >
+            <Entypo name="circle-with-minus" size={20} color={"#E11E1E"} />
           </Pressable>
           <Text style={styles.itemQty}>{item.quantity}</Text>
-          <Pressable>
-            <Text>-</Text>
+          <Pressable
+            style={[styles.editQtyBtn]}
+            onPress={() => increaseQuantity(item)}
+          >
+            <Entypo name="circle-with-plus" size={20} color={"#14A94C"} />
           </Pressable>
         </View>
         <Text>
           {"Use before "}
-          {item.expiration.getDate()}
-          {getOrdinal(item.dateAdded.getDate())}{" "}
-          {item.expiration.toLocaleString("default", { month: "long" })}
+          {getFormatedDate(item.expiration)}
         </Text>
       </View>
     </View>
   );
 }
-
-// { textDecorationLine: "line-through", textDecorationStyle: "solid" }
 
 const styles = StyleSheet.create({
   item: {
@@ -67,41 +80,29 @@ const styles = StyleSheet.create({
     display: "flex",
     flex: 1,
   },
+  itemName: {
+    fontSize: 18,
+    fontWeight: "600",
+  },
   itemRight: {
     display: "flex",
     flex: 1,
-    justifyContent: "flex-end",
+    justifyContent: "center",
     alignItems: "flex-end",
-  },
-  checkbox: {
-    flex: 2,
-  },
-  itemName: {
-    fontSize: 18,
-    flex: 4,
-    fontWeight: "600",
   },
   itemQtyRow: {
     display: "flex",
     flexDirection: "row",
-    justifyContent: "flex-end",
+    justifyContent: "center",
     alignItems: "flex-end",
   },
   itemQty: {
-    flex: 6,
     fontSize: 18,
     color: "#202020",
     opacity: 0.5,
     fontWeight: "normal",
-    display: "flex",
-    textAlign: "right",
   },
   editQtyBtn: {
-    width: 15,
-    height: 15,
-    borderRadius: 50,
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
+    marginHorizontal: 10,
   },
 });

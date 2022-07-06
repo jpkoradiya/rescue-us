@@ -6,10 +6,12 @@ import {
   Pressable,
   StyleSheet,
   TextInput,
+  Alert,
 } from "react-native";
 import { useStore } from "../store";
 import Modal from "react-native-modal";
 import RNPickerSelect from "react-native-picker-select";
+import { getItemDataAndExpiry } from "../data/getItemDataAndExpiry";
 
 export default function AddPantryItemModal({ modalVisible, setModalVisible }) {
   const { pantryList, addToPantryList } = useStore();
@@ -17,25 +19,40 @@ export default function AddPantryItemModal({ modalVisible, setModalVisible }) {
   const [productQty, setProductQty] = useState("");
   const [productUnit, setProductUnit] = useState("");
 
-  const handleAddItem = (e) => {
-    if (productName.length > 0 && productQty > 0) {
-      let newProd = {
-        id: pantryList.length + 1,
-        name: productName,
-        quantity: productQty,
-        unit: productUnit,
-        dateAdded: new Date(),
-        expiration: null,
-      };
-      newProd.expiration = new Date(
-        newProd.dateAdded.getTime() + 4 * 24 * 60 * 60 * 1000
-      );
-      console.log("NEW PANTRY: ", newProd);
-      addToPantryList(newProd);
-      setProductName("");
-      setProductQty("");
-      setProductUnit("");
-      setModalVisible(false);
+  const handleAddItem = async (e) => {
+    try {
+      if (productName.length > 0 && productQty > 0) {
+        let newProd = {
+          id: pantryList.length + 1,
+          name: productName,
+          quantity: parseInt(productQty),
+          unit: productUnit,
+          dateAdded: new Date(),
+          expiration: null,
+        };
+        const data = await getItemDataAndExpiry(newProd.name);
+        if (data.key === 0 && data.msg) {
+          Alert.alert(
+            data.msg,
+            "We couldn't find that item in our database, but we'll add it to your pantry list anyway with a default expiration date."
+          );
+          // set the expiration date to 60 days from now
+          newProd.expiration = new Date(
+            new Date().getTime() + 60 * 24 * 60 * 60 * 1000
+          );
+        } else
+          newProd.expiration = new Date(
+            newProd.dateAdded.getTime() + data.expiryInMs
+          );
+        addToPantryList(newProd);
+        setProductName("");
+        setProductQty("");
+        setProductUnit("");
+        setModalVisible(false);
+      }
+    } catch (err) {
+      console.warn(err);
+      Alert.alert("Something went wrong 😟");
     }
   };
 

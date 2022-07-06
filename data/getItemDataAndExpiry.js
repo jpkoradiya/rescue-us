@@ -5,8 +5,6 @@ const getFreshAndRawData = (item) => {
 };
 
 const getItemFromApi = async (itemName = "") => {
-  //var data = [];
-
   if (itemName !== "") {
     var uri = SHELF_LIFE_API_URL + "/search?q=" + itemName;
   } else {
@@ -18,27 +16,31 @@ const getItemFromApi = async (itemName = "") => {
   const res = await fetch(uri);
   var data = await res.json();
   data = data.filter(getFreshAndRawData);
-  return {
-    key: data[0].id,
-    name: itemName,
-  };
+  if (data.length > 0) {
+    return {
+      key: data[0].id,
+      name: itemName,
+    };
+  } else {
+    return {
+      key: 0,
+      name: itemName,
+      msg: "Item not found",
+    };
+  }
 };
 
 const getItemExpiry = async (item = { key: 0, name: "Invalid Name" }) => {
-  //var data = [];
   const itemId = item.key;
   if (itemId !== 0) {
     var uri = SHELF_LIFE_API_URL + "/guides/" + itemId;
-    //console.log(uri);
-
     const res = await fetch(uri);
     const data = await res.json();
-
     return {
       id: itemId,
       name: item.name,
-      expire: `${(data.methods[0].expirationTime)/86400} days`,
-      expiryInMs: (data.methods[0].expirationTime)*1000,
+      expire: `${(data.methods[0].expirationTime) / 86400} days`,
+      expiryInMs: (data.methods[0].expirationTime) * 1000,
     };
   } else {
     return {
@@ -49,12 +51,15 @@ const getItemExpiry = async (item = { key: 0, name: "Invalid Name" }) => {
   }
 };
 
-export const getItemDataAndExpiry = async (itemName="") => {
+export const getItemDataAndExpiry = async (itemName = "") => {
   if (itemName) {
     const foodItem = await getItemFromApi(itemName);
-    //console.log("data: ", data);
-    const expiry = await getItemExpiry(foodItem);
-    return expiry;
+    if (foodItem.key !== 0) {
+      const expiry = await getItemExpiry(foodItem);
+      return expiry
+    } else {
+      return foodItem
+    }
   } else {
     console.log("empty item name, returned empty object");
     return {

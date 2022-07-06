@@ -10,7 +10,6 @@ import {
 import { useStore } from "../store";
 import Modal from "react-native-modal";
 import RNPickerSelect from "react-native-picker-select";
-import {getItemDataAndExpiry} from '../data/getItemDataAndExpiry'
 
 export default function AddProductModal({ modalVisible, setModalVisible }) {
   const { shoppingList, addToShoppingList, addToPantryList } = useStore();
@@ -18,30 +17,19 @@ export default function AddProductModal({ modalVisible, setModalVisible }) {
   const [productQty, setProductQty] = useState("");
   const [productUnit, setProductUnit] = useState("");
 
-
-
-  const handleAddProduct = async(e) => {
+  const handleAddProduct = async (e) => {
     if (productName.length > 0 && productQty > 0) {
       let newProd = {
         id: shoppingList.length + 1,
         name: productName,
-        quantity: productQty,
+        quantity: parseInt(productQty),
         unit: productUnit,
       };
       addToShoppingList(newProd);
-      const data = await getItemDataAndExpiry(newProd.name);
-      newProd.dateAdded = new Date();
-      newProd.expiration = new Date();
-      newProd.expiration = new Date(
-        newProd.dateAdded.getTime() + data.expiryInMs
-      );
-      addToPantryList(newProd);
       setProductName("");
       setProductQty("");
       setProductUnit("");
       setModalVisible(false);
-
-      console.log(newProd)
     }
   };
 
