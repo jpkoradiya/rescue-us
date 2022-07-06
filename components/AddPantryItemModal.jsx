@@ -29,6 +29,7 @@ export default function AddPantryItemModal({ modalVisible, setModalVisible }) {
           unit: productUnit,
           dateAdded: new Date(),
           expiration: null,
+          key: -1,
         };
         const data = await getItemDataAndExpiry(newProd.name);
         if (data.key === 0 && data.msg) {
@@ -40,10 +41,14 @@ export default function AddPantryItemModal({ modalVisible, setModalVisible }) {
           newProd.expiration = new Date(
             new Date().getTime() + 60 * 24 * 60 * 60 * 1000
           );
-        } else
+        } else {
+          console.log(data)
+          newProd.key = data.id;
+
           newProd.expiration = new Date(
             newProd.dateAdded.getTime() + data.expiryInMs
           );
+        }
         addToPantryList(newProd);
         setProductName("");
         setProductQty("");

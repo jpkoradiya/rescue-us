@@ -1,6 +1,11 @@
 import create from "zustand";
 
 export const useStore = create((set, get) => ({
+    tips: [],
+    addToTips: (item) => set((state) => (
+        { tips: [...state.tips, item] }
+    )),
+
     shoppingList: [],
     // functions
     addToShoppingList: (item) => set((state) => (
