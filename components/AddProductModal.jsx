@@ -10,7 +10,7 @@ import {
 import { useStore } from "../store";
 import Modal from "react-native-modal";
 import RNPickerSelect from "react-native-picker-select";
-import {getItemDataAndExpiry} from '../data/globalFetchFunctions'
+import {getItemDataAndExpiry} from '../data/getItemDataAndExpiry'
 
 export default function AddProductModal({ modalVisible, setModalVisible }) {
   const { shoppingList, addToShoppingList, addToPantryList } = useStore();
