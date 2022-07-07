@@ -19,7 +19,6 @@ export default function HomeStackScreen() {
       <HomeStack.Screen
         name="Shelter Details"
         component={DetailsScreen}
-        options={({ route }) => ({ title: route.params.data.NAME })}
       />
     </HomeStack.Navigator>
   );
