@@ -5,8 +5,8 @@ import { TipsCarousel } from "./TipsComponent";
 export default function BlogScreen({ navigation }) {
   return (
     <View style={styles.container}>
-      <TipsCarousel />
-      <Recipes />
+      <TipsCarousel style={{ flex: 4 }} />
+      <Recipes style={{ flex: 8 }} navigation={navigation} />
       {/* <Button
         title="Go to Home"
         onPress={() =>
@@ -32,7 +32,9 @@ export default function BlogScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    display: "flex",
+    justifyContent: "flex-start",
+    // flex: 1,
     backgroundColor: "#FAFAFA",
     alignItems: "center",
   },

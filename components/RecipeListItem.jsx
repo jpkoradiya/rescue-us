@@ -1,31 +1,20 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  Alert,
-  Image,
-  ImageBackground,
-} from "react-native";
-import { useState } from "react";
+import { View, Text, StyleSheet, Image, Pressable } from "react-native";
 
-export default function RecipeListItem({ item }) {
-  const [loading, setLoading] = useState(false);
-  console.log(item);
-
+export default function RecipeListItem({ item, navigation }) {
   return (
-    <View style={styles.card}>
-      <View style={styles.cardImage}>
-        <Image
-          // source={{ uri: item.image }}
-          source={{ uri: item.image }}
-          style={styles.cardImageComp}
-        />
+    <Pressable
+      onPress={() => navigation.navigate("Recipe Details", { item: item })}
+    >
+      <View style={styles.card}>
+        <View style={styles.cardImage}>
+          <Image source={{ uri: item.image }} style={styles.cardImageComp} />
+        </View>
+        <View style={styles.cardInfo}>
+          <Text style={styles.cardTitle}>{item.name}</Text>
+          <Text style={styles.detailsBtn}>See details</Text>
+        </View>
       </View>
-      <View style={styles.cardInfo}>
-        <Text style={styles.cardTitle}>{item.title}</Text>
-        <Text style={styles.detailsBtn}>See details</Text>
-      </View>
-    </View>
+    </Pressable>
   );
 }
 
@@ -57,8 +46,6 @@ const styles = StyleSheet.create({
   },
   cardInfo: {
     display: "flex",
-    // paddingTop: 10,
-    // paddingHorizontal: 10,
   },
   cardTitle: {
     fontSize: 16,

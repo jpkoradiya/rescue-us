@@ -12,13 +12,11 @@ const SLIDER_WIDTH = Dimensions.get("window").width;
 const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.85);
 const ITEM_HEIGHT = Math.round((ITEM_WIDTH * 1.6) / 4);
 
-
-
 export const TipsCarousel = () => {
   const pantryList = useStore((state) => state.pantryList);
   const [tips, setTips] = useState(["Loading..."]);
-  
-    const [activeSlide,setActiveSlide] = useState(0);
+
+  const [activeSlide, setActiveSlide] = useState(0);
 
   useEffect(() => {
     const getData = async () => {
@@ -48,40 +46,41 @@ export const TipsCarousel = () => {
   return (
     <View style={styles.TipsContainer}>
       <View style={styles.CarouselContainer}>
-      <Carousel
-        data={tips}
-        renderItem={_renderItem}
-        sliderWidth={SLIDER_WIDTH}
-        itemWidth={ITEM_WIDTH}
-        containerCustomStyle={styles.carouselContainer}
-        inactiveSlideShift={0}
-        scrollInterpolator={scrollInterpolator}
-        slideInterpolatedStyle={animatedStyles}
-        useScrollView={true}
-        onSnapToItem={(index) => setActiveSlide(index)}
-        layout={'default'}// layoutCardOffset={`10`}
+        <Carousel
+          data={tips}
+          renderItem={_renderItem}
+          sliderWidth={SLIDER_WIDTH}
+          itemWidth={ITEM_WIDTH}
+          containerCustomStyle={styles.carouselContainer}
+          inactiveSlideShift={0}
+          scrollInterpolator={scrollInterpolator}
+          slideInterpolatedStyle={animatedStyles}
+          useScrollView={true}
+          onSnapToItem={(index) => setActiveSlide(index)}
+          layout={"default"} // layoutCardOffset={`10`}
         />
       </View>
       <View style={styles.PaginationContainer}>
-      <Pagination style={styles.pagination}
-        dotsLength={tips.length}
-        activeDotIndex={activeSlide}
-        containerStyle={{ backgroundColor: "#FAFAFA" }}
-        dotStyle={{
-          width: 10,
-          height: 10,
-          borderRadius: 5,
-          marginHorizontal: 1,
-          backgroundColor: "black",
-        }}
-        inactiveDotStyle={
-          {
-            // Define styles for inactive dots here
+        <Pagination
+          style={styles.pagination}
+          dotsLength={tips.length}
+          activeDotIndex={activeSlide}
+          containerStyle={{ backgroundColor: "#FAFAFA" }}
+          dotStyle={{
+            width: 10,
+            height: 10,
+            borderRadius: 5,
+            marginHorizontal: 1,
+            backgroundColor: "black",
+          }}
+          inactiveDotStyle={
+            {
+              // Define styles for inactive dots here
+            }
           }
-        }
-        inactiveDotOpacity={0.4}
-        inactiveDotScale={0.6}
-      />
+          inactiveDotOpacity={0.4}
+          inactiveDotScale={0.6}
+        />
       </View>
     </View>
   );
@@ -131,16 +130,20 @@ const styles = StyleSheet.create({
   },
   pagination: {
     marginTop: 0,
+    width: "100%",
+    backgroundColor: "red",
+    marginLeft: "50%",
+    paddingLeft: 100,
   },
-  TipsContainer:{
-    height: 500,
-    justifyContent: "flex-start"
+  TipsContainer: {
+    display: "flex",
   },
   CarouselContainer: {
-    flex: 1,
+    width: "100%",
   },
   PaginationContainer: {
-    flex: 2,
-    //marginTop: "-50px"
-  }
+    width: "100%",
+    display: "flex",
+    alignSelf: "center",
+  },
 });
