@@ -11,7 +11,10 @@ export const getTips = async (pantryList = []) => {
           const res = await fetch(uri);
           const data = await res.json();
 
-          tips.push(data.tips[0]);
+          const index = data.tips.length - 1;
+          if (data.tips[index].length > 30 && data.tips[index].length < 180) {
+            tips.push(data.tips[index]);
+          }
         }
       }
     }
@@ -29,7 +32,7 @@ export const getTips = async (pantryList = []) => {
       if (res.ok) {
         const data = await res.json();
         const index = data.tips.length - 1;
-        if (data.tips[index].length > 30) {
+        if (data.tips[index].length > 30 && data.tips[index].length < 180) {
           tips.push(data.tips[index]);
         }
       }

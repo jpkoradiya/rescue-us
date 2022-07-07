@@ -1,31 +1,24 @@
-// export const TipsCarousel = () => {
-//     return(
-//         <Carousel layout={'default'} />
-//     );
-// }
-
 import React, { useState, useEffect } from "react";
 import { Text, View, Dimensions, StyleSheet } from "react-native";
 import { useStore } from "../store";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
-import Carousel from "react-native-snap-carousel"; // Version can be specified in package.json
+import Carousel, { Pagination } from "react-native-snap-carousel"; // Version can be specified in package.json
 
 import { scrollInterpolator, animatedStyles } from "../utils/animation";
 import { getTips } from "../data/getTipsAndTricks";
 
 const SLIDER_WIDTH = Dimensions.get("window").width;
-const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7);
-const ITEM_HEIGHT = Math.round((ITEM_WIDTH * 3) / 4);
+const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.85);
+const ITEM_HEIGHT = Math.round((ITEM_WIDTH * 1.6) / 4);
 
-const DATA = [];
-for (let i = 0; i < 10; i++) {
-  DATA.push(i);
-}
+
 
 export const TipsCarousel = () => {
   const pantryList = useStore((state) => state.pantryList);
-  const [tips, setTips] = useState([]);
+  const [tips, setTips] = useState(["Loading..."]);
+  
+    const [activeSlide,setActiveSlide] = useState();
 
   useEffect(() => {
     const getData = async () => {
@@ -33,16 +26,21 @@ export const TipsCarousel = () => {
       setTips(data);
     };
     getData();
-    console.log(tips);
-  }, []);
+  }, [pantryList]);
 
   const _renderItem = ({ item }) => {
     return (
       <View style={styles.itemContainer}>
-        <Text style={styles.itemLabel}>
-          <MaterialCommunityIcons name="lightbulb-outline" />
-          {`${item}`}
-        </Text>
+        <View style={styles.ImageContainer}>
+          <MaterialCommunityIcons
+            name="lightbulb-outline"
+            size={50}
+            color="white"
+          />
+        </View>
+        <View style={styles.TextContainer}>
+          <Text style={styles.itemLabel}>{item}</Text>
+        </View>
       </View>
     );
   };
@@ -59,22 +57,44 @@ export const TipsCarousel = () => {
         scrollInterpolator={scrollInterpolator}
         slideInterpolatedStyle={animatedStyles}
         useScrollView={true}
+        onSnapToItem={(index) => setActiveSlide(index)}
       />
-      <Text style={styles.counter}>here</Text>
+      <Pagination style={styles.pagination}
+        dotsLength={tips.length}
+        activeDotIndex={activeSlide}
+        containerStyle={{ backgroundColor: "white" }}
+        dotStyle={{
+          width: 10,
+          height: 100,
+          borderRadius: 5,
+          marginHorizontal: 8,
+          backgroundColor: "black",
+        }}
+        inactiveDotStyle={
+          {
+            // Define styles for inactive dots here
+          }
+        }
+        inactiveDotOpacity={0.4}
+        inactiveDotScale={0.6}
+      />
+      
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   carouselContainer: {
-    marginTop: 50,
+    marginTop: 25,
   },
   itemContainer: {
     width: ITEM_WIDTH,
     height: ITEM_HEIGHT,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "dodgerblue",
+    backgroundColor: "#14A94C",
+    borderRadius: 20,
+    flexDirection: "row",
   },
   itemLabel: {
     color: "white",
@@ -86,4 +106,19 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
   },
+  ImageContainer: {
+    width: "auto",
+    flex: 1,
+    paddingLeft: 10,
+    marginRight: 0,
+  },
+  TextContainer: {
+    width: "auto",
+    flex: 2,
+    marginLeft: 0,
+    paddingRight: 10,
+  },
+  pagination: {
+    marginTop: 0,
+  }
 });
