@@ -1,13 +1,13 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { StyleSheet } from "react-native";
-import ShoppingListScreen from "./screens/ShoppingListScreen";
-import PantryScreen from "./screens/PantryScreen";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import HomeStackScreen from "./stacks/HomeStackScreen";
 import BlogStackScreen from "./stacks/BlogStackScreen";
+import ShoppingListStackScreen from "./stacks/ShoppingListStackScreen"
+import PantryStackScreen from "./stacks/PantryStackScreen"
 // **** Tab Navigation *****
 
 export default function App() {
@@ -85,7 +85,7 @@ export default function App() {
           name="Blog"
           component={BlogStackScreen}
           options={{
-            title: "Shelter Map",
+            title: "Blog",
             headerShown: false,
             headerTitleStyle: {
               fontSize: 28,
@@ -93,8 +93,22 @@ export default function App() {
             },
           }}
         />
-        <Tab.Screen name="Shopping List" component={ShoppingListScreen} />
-        <Tab.Screen name="Pantry" component={PantryScreen} />
+        <Tab.Screen name="Shopping List" component={ShoppingListStackScreen} options={{
+            title: "Shopping List",
+            headerShown: false,
+            headerTitleStyle: {
+              fontSize: 28,
+              fontWeight: "600",
+            },
+          }}/>
+        <Tab.Screen name="Pantry" component={PantryStackScreen} options={{
+            title: "Pantry",
+            headerShown: false,
+            headerTitleStyle: {
+              fontSize: 28,
+              fontWeight: "600",
+            },
+          }}/>
       </Tab.Navigator>
     </NavigationContainer>
   );

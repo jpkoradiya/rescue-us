@@ -5,10 +5,9 @@ import { TipsCarousel } from "./TipsComponent";
 export default function BlogScreen({ navigation }) {
   return (
     <View style={styles.container}>
-      <Text>Carousel</Text>
       <TipsCarousel />
       <Recipes />
-      <Button
+      {/* <Button
         title="Go to Home"
         onPress={() =>
           navigation.navigate("Recipe Details", {
@@ -25,7 +24,7 @@ export default function BlogScreen({ navigation }) {
             ],
           })
         }
-      />
+      /> */}
       <StatusBar style="auto" />
     </View>
   );
@@ -34,8 +33,7 @@ export default function BlogScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#FAFAFA",
     alignItems: "center",
-    justifyContent: "center",
   },
 });

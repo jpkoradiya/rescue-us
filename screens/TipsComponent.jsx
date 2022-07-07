@@ -18,7 +18,7 @@ export const TipsCarousel = () => {
   const pantryList = useStore((state) => state.pantryList);
   const [tips, setTips] = useState(["Loading..."]);
   
-    const [activeSlide,setActiveSlide] = useState();
+    const [activeSlide,setActiveSlide] = useState(0);
 
   useEffect(() => {
     const getData = async () => {
@@ -35,7 +35,7 @@ export const TipsCarousel = () => {
           <MaterialCommunityIcons
             name="lightbulb-outline"
             size={50}
-            color="white"
+            color="#000000"
           />
         </View>
         <View style={styles.TextContainer}>
@@ -46,7 +46,8 @@ export const TipsCarousel = () => {
   };
 
   return (
-    <View>
+    <View style={styles.TipsContainer}>
+      <View style={styles.CarouselContainer}>
       <Carousel
         data={tips}
         renderItem={_renderItem}
@@ -58,16 +59,19 @@ export const TipsCarousel = () => {
         slideInterpolatedStyle={animatedStyles}
         useScrollView={true}
         onSnapToItem={(index) => setActiveSlide(index)}
-      />
+        layout={'default'}// layoutCardOffset={`10`}
+        />
+      </View>
+      <View style={styles.PaginationContainer}>
       <Pagination style={styles.pagination}
         dotsLength={tips.length}
         activeDotIndex={activeSlide}
-        containerStyle={{ backgroundColor: "white" }}
+        containerStyle={{ backgroundColor: "#FAFAFA" }}
         dotStyle={{
           width: 10,
-          height: 100,
+          height: 10,
           borderRadius: 5,
-          marginHorizontal: 8,
+          marginHorizontal: 1,
           backgroundColor: "black",
         }}
         inactiveDotStyle={
@@ -78,7 +82,7 @@ export const TipsCarousel = () => {
         inactiveDotOpacity={0.4}
         inactiveDotScale={0.6}
       />
-      
+      </View>
     </View>
   );
 };
@@ -92,12 +96,19 @@ const styles = StyleSheet.create({
     height: ITEM_HEIGHT,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#14A94C",
+    backgroundColor: "#FFFFFF",
     borderRadius: 20,
     flexDirection: "row",
+    borderColor: "#8F8F8F",
+    borderWidth: 0.25,
+    // shadowColor: "#000000",
+    // shadowOffset: {width: 0, height: 2},
+    // shadowOpacity: 0.4,
+    // shadowRadius: 3,
+    // elevation: 2,
   },
   itemLabel: {
-    color: "white",
+    color: "#000",
     fontSize: 16,
   },
   counter: {
@@ -114,11 +125,22 @@ const styles = StyleSheet.create({
   },
   TextContainer: {
     width: "auto",
-    flex: 2,
+    flex: 4,
     marginLeft: 0,
     paddingRight: 10,
   },
   pagination: {
     marginTop: 0,
+  },
+  TipsContainer:{
+    height: 500,
+    justifyContent: "flex-start"
+  },
+  CarouselContainer: {
+    flex: 1,
+  },
+  PaginationContainer: {
+    flex: 2,
+    //marginTop: "-50px"
   }
 });

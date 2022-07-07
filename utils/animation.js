@@ -20,7 +20,7 @@ export function animatedStyles (index, animatedValue, carouselProps) {
         animatedOpacity = {
             opacity: animatedValue.interpolate({
                 inputRange: [-1, 0, 1],
-                outputRange: [carouselProps.inactiveSlideOpacity, 1, carouselProps.inactiveSlideOpacity]
+                outputRange: [0, 1, 0]
             })
         };
     }

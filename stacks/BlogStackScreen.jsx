@@ -15,7 +15,7 @@ export default function BlogStackScreen() {
         },
       }}
     >
-      <HomeStack.Screen name="Blog Screen" component={BlogScreen} />
+      <HomeStack.Screen name="Blog" component={BlogScreen} />
       <HomeStack.Screen name="Recipe Details" component={RecipeDetailsScreen} />
     </HomeStack.Navigator>
   );
