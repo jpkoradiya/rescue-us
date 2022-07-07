@@ -1,27 +1,13 @@
-// import { useEffect } from "react";
 import { View, Text, StatusBar, StyleSheet, Button } from "react-native";
-// import { getTips } from "../data/getTipsAndTricks";
-// import { useStore } from "../store";
-import {TipsCarousel} from "./TipsComponent";
+import Recipes from "../components/Recipes";
+import { TipsCarousel } from "./TipsComponent";
 
 export default function BlogScreen({ navigation }) {
-  // const pantryList = useStore((state) => state.pantryList);
-  
-  // const { addToTips } = useStore();
-
-  // useEffect(() => {
-  //   const getData = async () => {
-  //     await addToTips(...(await getTips(pantryList)));
-  //     //console.log("Tips: ",tips)
-  //   };
-  //   getData();
-    
-  // }, [pantryList]);
-
   return (
     <View style={styles.container}>
       <Text>Carousel</Text>
-      <TipsCarousel/>
+      <TipsCarousel />
+      <Recipes />
       <Button
         title="Go to Home"
         onPress={() =>
