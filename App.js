@@ -1,15 +1,11 @@
 import "./ignoreWarnings";
 import { NavigationContainer } from "@react-navigation/native";
-import { StyleSheet } from "react-native";
+import { Image } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import MaterialIcons from "react-native-vector-icons/MaterialIcons";
-import Icon from "react-native-vector-icons/FontAwesome5";
 import HomeStackScreen from "./stacks/HomeStackScreen";
 import BlogStackScreen from "./stacks/BlogStackScreen";
 import ShoppingListStackScreen from "./stacks/ShoppingListStackScreen"
 import PantryStackScreen from "./stacks/PantryStackScreen"
-// **** Tab Navigation *****
 
 export default function App() {
   const Tab = createBottomTabNavigator();
@@ -22,43 +18,34 @@ export default function App() {
           tabBarIcon: ({ focused, color, size }) => {
             if (route.name === "Home") {
               return (
-                <Icon
-                  name="map-marker-alt"
-                  size={size}
-                  color={color}
-                  solid={focused}
+                <Image
+                  source={require("./assets/RescueUs-icons/map.png")}
+                  style={{ width: size, height: size, opacity: !focused ? 0.5 : 1 }}
                 />
               );
             } else if (route.name === "Blog Tab") {
               return (
-                <MaterialCommunityIcons
-                  name="chef-hat"
-                  size={size}
-                  color={color}
+                <Image
+                  source={require("./assets/RescueUs-icons/blog.png")}
+                  style={{ width: size, height: size, opacity: !focused ? 0.5 : 1 }}
                 />
               );
             } else if (route.name === "Shopping List Tab") {
               return (
-                <Icon
-                  name="shopping-cart"
-                  size={size}
-                  color={color}
-                  solid={focused}
+                <Image
+                  source={require("./assets/RescueUs-icons/shopping-list.png")}
+                  style={{ width: size, height: size, opacity: !focused ? 0.5 : 1 }}
                 />
               );
             } else if (route.name === "Pantry") {
               return (
-                <MaterialIcons
-                  name="kitchen"
-                  size={size}
-                  color={color}
-                  solid={focused}
+                <Image
+                  source={require("./assets/RescueUs-icons/pantry.png")}
+                  style={{ width: size, height: size, opacity: !focused ? 0.5 : 1 }}
                 />
               );
             }
           },
-          tabBarActiveTintColor: "white",
-          tabBarInactiveTintColor: "rgba(255, 255, 255, 0.5)",
           tabBarShowLabel: false,
           safeAreaInset: { bottom: "never", top: "never" },
           tabBarStyle: {
@@ -115,11 +102,3 @@ export default function App() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
