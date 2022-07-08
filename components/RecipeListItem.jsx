@@ -21,17 +21,16 @@ export default function RecipeListItem({ item, navigation }) {
 const styles = StyleSheet.create({
   card: {
     width: "100%",
-    // height: 200,
     marginVertical: 10,
     borderRadius: 20,
     backgroundColor: "#FFFFFF",
-    shadowColor: "#000",
+    shadowColor: "#000000",
     shadowOffset: {
       width: 0,
       height: 2,
     },
     shadowOpacity: 0.25,
-    shadowRadius: 4,
+    shadowRadius: 3.84,
     elevation: 5,
   },
   cardImage: {

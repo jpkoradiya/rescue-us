@@ -1,3 +1,4 @@
+import "./ignoreWarnings";
 import { NavigationContainer } from "@react-navigation/native";
 import { StyleSheet } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -28,7 +29,7 @@ export default function App() {
                   solid={focused}
                 />
               );
-            } else if (route.name === "Blog") {
+            } else if (route.name === "Blog Tab") {
               return (
                 <MaterialCommunityIcons
                   name="chef-hat"
@@ -36,7 +37,7 @@ export default function App() {
                   color={color}
                 />
               );
-            } else if (route.name === "Shopping List") {
+            } else if (route.name === "Shopping List Tab") {
               return (
                 <Icon
                   name="shopping-cart"
@@ -82,7 +83,7 @@ export default function App() {
           }}
         />
         <Tab.Screen
-          name="Blog"
+          name="Blog Tab"
           component={BlogStackScreen}
           options={{
             title: "Blog",
@@ -93,22 +94,22 @@ export default function App() {
             },
           }}
         />
-        <Tab.Screen name="Shopping List" component={ShoppingListStackScreen} options={{
-            title: "Shopping List",
-            headerShown: false,
-            headerTitleStyle: {
-              fontSize: 28,
-              fontWeight: "600",
-            },
-          }}/>
+        <Tab.Screen name="Shopping List Tab" component={ShoppingListStackScreen} options={{
+          title: "Shopping List",
+          headerShown: false,
+          headerTitleStyle: {
+            fontSize: 28,
+            fontWeight: "600",
+          },
+        }} />
         <Tab.Screen name="Pantry" component={PantryStackScreen} options={{
-            title: "Pantry",
-            headerShown: false,
-            headerTitleStyle: {
-              fontSize: 28,
-              fontWeight: "600",
-            },
-          }}/>
+          title: "Pantry",
+          headerShown: false,
+          headerTitleStyle: {
+            fontSize: 28,
+            fontWeight: "600",
+          },
+        }} />
       </Tab.Navigator>
     </NavigationContainer>
   );
