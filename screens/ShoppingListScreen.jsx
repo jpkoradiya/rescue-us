@@ -29,14 +29,19 @@ export default function ShoppingListScreen({ navigation }) {
         setModalVisible={setModalVisible}
         modalVisible={modalVisible}
       />
-      {shoppingList.length > 0 &&
+      {shoppingList.length > 0 ? (
         shoppingList.map((item) => (
           <ShoppingListItem
             key={item.id}
             item={item}
             style={{ width: "100%" }}
           />
-        ))}
+        ))
+      ) : (
+        <View style={styles.noItemsContainer}>
+          <Text style={styles.noItemsText}>No items in your pantry</Text>
+        </View>
+      )}
       <StatusBar style="auto" />
     </View>
   );
@@ -53,5 +58,17 @@ const styles = StyleSheet.create({
     margin: 10,
     fontWeight: "600",
     fontSize: 16,
+  },
+  noItemsContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  noItemsText: {
+    fontSize: 20,
+    fontWeight: "400",
+    margin: 10,
+    textAlign: "center",
+    color: "rgba(0,0,0,0.3)",
   },
 });

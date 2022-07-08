@@ -8,6 +8,7 @@ export default function PantryStackScreen() {
     <HomeStack.Navigator
       screenOptions={{
         headerShown: true,
+        headerTitle: "Pantry",
         headerTitleStyle: {
           fontSize: 28,
           fontWeight: "600",

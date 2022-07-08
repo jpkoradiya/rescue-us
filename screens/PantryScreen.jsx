@@ -26,11 +26,17 @@ export default function PantryScreen({ navigation }) {
         setModalVisible={setModalVisible}
         modalVisible={modalVisible}
       />
-      <FlatList
-        data={pantryList}
-        keyExtractor={pantryList.id}
-        renderItem={({ item }) => <PantryListItem id={item.id} />}
-      />
+      {pantryList.length > 0 ? (
+        <FlatList
+          data={pantryList}
+          keyExtractor={pantryList.id}
+          renderItem={({ item }) => <PantryListItem id={item.id} />}
+        />
+      ) : (
+        <View style={styles.noItemsContainer}>
+          <Text style={styles.noItemsText}>No items in your pantry</Text>
+        </View>
+      )}
     </View>
   );
 }
@@ -46,5 +52,17 @@ const styles = StyleSheet.create({
     margin: 10,
     fontWeight: "600",
     fontSize: 16,
+  },
+  noItemsContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  noItemsText: {
+    fontSize: 20,
+    fontWeight: "400",
+    margin: 10,
+    textAlign: "center",
+    color: "rgba(0,0,0,0.3)",
   },
 });

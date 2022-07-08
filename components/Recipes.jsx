@@ -13,7 +13,7 @@ export default function Recipes({ navigation }) {
         justifyContent: "center",
         width: "100%",
         marginBottom: 80,
-        paddingHorizontal: "4%",
+        // paddingHorizontal: "4%",
       }}
     >
       <ScrollView>

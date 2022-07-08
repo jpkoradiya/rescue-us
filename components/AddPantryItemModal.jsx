@@ -42,7 +42,7 @@ export default function AddPantryItemModal({ modalVisible, setModalVisible }) {
             new Date().getTime() + 60 * 24 * 60 * 60 * 1000
           );
         } else {
-          console.log(data)
+          console.log(data);
           newProd.key = data.id;
 
           newProd.expiration = new Date(
@@ -183,7 +183,7 @@ const styles = StyleSheet.create({
   },
   modalView: {
     width: "100%",
-    height: "50%",
+    height: "42%",
     backgroundColor: "#AEB7B6",
     borderTopRightRadius: 40,
     borderTopLeftRadius: 40,

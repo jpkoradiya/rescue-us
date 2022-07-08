@@ -60,45 +60,21 @@ export default function App() {
         <Tab.Screen
           name="Home"
           component={HomeStackScreen}
-          options={{
-            title: "Shelter Map",
-            headerShown: false,
-            headerTitleStyle: {
-              fontSize: 28,
-              fontWeight: "600",
-            },
-          }}
+          options={options}
         />
         <Tab.Screen
           name="Blog Tab"
           component={BlogStackScreen}
-          options={{
-            title: "Blog",
-            headerShown: false,
-            headerTitleStyle: {
-              fontSize: 28,
-              fontWeight: "600",
-            },
-          }}
+          options={options}
         />
-        <Tab.Screen name="Shopping List Tab" component={ShoppingListStackScreen} options={{
-          title: "Shopping List",
-          headerShown: false,
-          headerTitleStyle: {
-            fontSize: 28,
-            fontWeight: "600",
-          },
-        }} />
-        <Tab.Screen name="Pantry" component={PantryStackScreen} options={{
-          title: "Pantry",
-          headerShown: false,
-          headerTitleStyle: {
-            fontSize: 28,
-            fontWeight: "600",
-          },
-        }} />
+        <Tab.Screen name="Shopping List Tab" component={ShoppingListStackScreen} options={options} />
+        <Tab.Screen name="Pantry" component={PantryStackScreen} options={options} />
       </Tab.Navigator>
     </NavigationContainer>
   );
+}
+
+const options = {
+  headerShown: false,
 }
 

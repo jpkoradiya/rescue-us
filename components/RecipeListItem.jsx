@@ -24,14 +24,6 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     borderRadius: 20,
     backgroundColor: "#FFFFFF",
-    shadowColor: "#000000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
   },
   cardImage: {
     width: "100%",
@@ -55,7 +47,7 @@ const styles = StyleSheet.create({
   detailsBtn: {
     color: "rgba(0,0,0,0.5)",
     textDecorationLine: "underline",
-    paddingBottom: 30,
+    paddingBottom: 10,
     paddingHorizontal: 10,
   },
 });
