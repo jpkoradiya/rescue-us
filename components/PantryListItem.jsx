@@ -35,7 +35,6 @@ export default function PantryListItem({ id }) {
         <Text>
           {"Added "}
           {getFormatedDate(item.dateAdded)}
-          {item.id}
         </Text>
       </View>
       <View style={styles.itemRight}>

@@ -39,7 +39,7 @@ export default function ShoppingListScreen({ navigation }) {
         ))
       ) : (
         <View style={styles.noItemsContainer}>
-          <Text style={styles.noItemsText}>No items in your pantry</Text>
+          <Text style={styles.noItemsText}>No items in your shopping list</Text>
         </View>
       )}
       <StatusBar style="auto" />

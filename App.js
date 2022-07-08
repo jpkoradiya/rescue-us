@@ -37,7 +37,7 @@ export default function App() {
                   style={{ width: size, height: size, opacity: !focused ? 0.5 : 1 }}
                 />
               );
-            } else if (route.name === "Pantry") {
+            } else if (route.name === "Pantry Tab") {
               return (
                 <Image
                   source={require("./assets/RescueUs-icons/pantry.png")}
@@ -51,8 +51,9 @@ export default function App() {
           tabBarStyle: {
             backgroundColor: "#14A94C",
             borderRadius: 40,
-            marginBottom: 10,
-            marginHorizontal: 5,
+            marginBottom: 16,
+            marginHorizontal: 24,
+            height: 64,
             position: "absolute",
           },
         })}
@@ -68,7 +69,7 @@ export default function App() {
           options={options}
         />
         <Tab.Screen name="Shopping List Tab" component={ShoppingListStackScreen} options={options} />
-        <Tab.Screen name="Pantry" component={PantryStackScreen} options={options} />
+        <Tab.Screen name="Pantry Tab" component={PantryStackScreen} options={options} />
       </Tab.Navigator>
     </NavigationContainer>
   );

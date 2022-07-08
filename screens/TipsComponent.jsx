@@ -24,7 +24,7 @@ export const TipsCarousel = () => {
       setTips(data);
     };
     getData();
-  }, [pantryList]);
+  }, []);
 
   const _renderItem = ({ item }) => {
     return (

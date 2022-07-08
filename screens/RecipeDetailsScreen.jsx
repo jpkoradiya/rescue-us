@@ -100,7 +100,8 @@ export default function RecipeDetailsScreen({ route, navigation }) {
 
 const styles = StyleSheet.create({
   recipeDetails: {
-    // marginBottom: 60,
+     marginBottom: 48,
+     borderRadius: 24,
   },
   recipeTitle: {
     fontSize: 24,

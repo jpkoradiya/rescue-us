@@ -15,7 +15,7 @@ export default function PantryStackScreen() {
         },
       }}
     >
-      <HomeStack.Screen name="PantryScreen" component={PantryScreen} />
+      <HomeStack.Screen name="Pantry" component={PantryScreen} />
     </HomeStack.Navigator>
   );
 }
