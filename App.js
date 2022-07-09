@@ -7,6 +7,7 @@ import BlogStackScreen from "./stacks/BlogStackScreen";
 import ShoppingListStackScreen from "./stacks/ShoppingListStackScreen"
 import PantryStackScreen from "./stacks/PantryStackScreen"
 
+
 export default function App() {
   const Tab = createBottomTabNavigator();
 
@@ -78,4 +79,3 @@ export default function App() {
 const options = {
   headerShown: false,
 }
-
